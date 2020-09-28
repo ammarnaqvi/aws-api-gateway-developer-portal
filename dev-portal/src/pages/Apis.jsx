@@ -31,13 +31,80 @@ export default observer(class ApisPage extends React.Component {
   componentDidUpdate () { this.updateApi(false) }
   componentWillUnmount () { this.containerRef = null }
 
-  updateApi (isInitial) {
+  updateApi(isInitial) {
+    console.log('haha');
+  /*eslint-disable */
+    APIMaticDevPortal.show({
+      container: "apimatic-widget",
+      codegenApiRoutes: {
+        docsgen:
+          '/api/api-entities/6g6mB6Y6aCL_oQb7ruMTlNR9FpJh7muYCAMj48NaoAPbnctNC9op4oQ5ABA1mrrt/published-artifacts/docs-generations/generated-file?template={template}',
+        codegen:
+          '/api/api-entities/6g6mB6Y6aCL_oQb7ruMTlNR9FpJh7muYCAMj48NaoAPbnctNC9op4oQ5ABA1mrrt/published-artifacts/code-generations/generated-file?template={template}',
+        transform:
+          '/api/api-entities/6g6mB6Y6aCL_oQb7ruMTlNR9FpJh7muYCAMj48NaoAPbnctNC9op4oQ5ABA1mrrt/published-artifacts/transformations/generated-file?format={format}'
+      },
+      apiKey: "8bt0WJD4Z596xsB-lb8SOPRk833SKx2PUWWvjFQups9Rzw1pPufY-HdEnUec_6-tKrMFscRo4roAoCNhJXSItg**",
+      baseUrl: "https://www.apimatic.io",
+      enableExport: true,
+      renameHttpToRest: false,
+      enableConsoleCalls: true,
+      useProxyForConsoleCalls: true,
+      initialPlatform: "http_curl_v1",
+      languageSettings: {
+        "http_curl_v1": {
+          disableSdkDownload: false,
+          sdkDownloadLink: ""
+        }
+        ,
+        "java_eclipse_jre_lib": {
+          disableSdkDownload: false,
+          sdkDownloadLink: ""
+        }
+        ,
+        "php_generic_lib": {
+          disableSdkDownload: false,
+          sdkDownloadLink: ""
+        }
+        ,
+        "python_generic_lib": {
+          disableSdkDownload: false,
+          sdkDownloadLink: ""
+        }
+        ,
+        "ruby_generic_lib": {
+          disableSdkDownload: false,
+          sdkDownloadLink: ""
+        }
+        ,
+        "cs_net_standard_lib": {
+          disableSdkDownload: false,
+          sdkDownloadLink: ""
+        }
+        ,
+        "cs_portable_net_lib": {
+          disableSdkDownload: false
+        }
+        ,
+        "node_javascript_lib": {
+          disableSdkDownload: false,
+          sdkDownloadLink: ""
+        }
+      },
+      themeOverrides: {
+        themeType: "cool",
+        palette: {
+          primaryColor: "#39e6ba"
+        }
+      }
+    });
+  /*eslint-enable */
     return getApi(this.props.match.params.apiId || 'ANY', true, this.props.match.params.stage, isInitial)
       .then(api => {
         if (this.containerRef == null) return
         const elem = this.containerRef.current
         const isFirstLoad = !this.hasRoot
-
+        console.log(api.swagger);
         this.hasRoot = elem != null
         if (api && elem != null) {
           const cell = {
@@ -46,6 +113,7 @@ export default observer(class ApisPage extends React.Component {
               cell.shouldPreauthorizeApiKey = true
             }
           }
+
           const swaggerUiConfig = {
             domNode: this.containerRef.current,
             plugins: [SwaggerLayoutPlugin],
@@ -92,6 +160,7 @@ export default observer(class ApisPage extends React.Component {
         SidebarPusherProps={{ className: 'swagger-section' }}
       >
         <div className='swagger-ui-wrap' ref={this.containerRef} style={{ padding: '0 20px' }}>
+          <div id="apimatic-widget" style={{ height: '100%', width: '100%' }}></div>
           {errorHeader && errorBody && (
             <>
               <Header as='h2' icon textAlign='center' style={{ padding: '40px 0px' }}>

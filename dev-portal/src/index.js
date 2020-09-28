@@ -35,7 +35,7 @@ loadFragments()
 // TODO: Feedback should be enabled if
 // the following is true && the current
 // user is not an administrator
-const feedbackEnabled = window.config.feedbackEnabled
+const feedbackEnabled = false
 
 export const RegisteredRoute = ({ component: Component, ...rest }) => (
   <Route
