@@ -39,8 +39,44 @@ export default observer(function ApisMenu (props) {
   // If we're not loading, and we don't have any apis, display a message.
   // If we're not loading, and we have some apis, render the appropriate api subsections for apiGateway and generic apis
   if (!store.apiList.loaded) {
-    return <Loader active />
-  }
+    return (
+      <Sidebar>
+        <SidebarHeader
+          as={Link}
+          className='item'
+          to='/apis/search'
+          active={props.path.url === '/apis/search'}
+          style={{ fontWeight: '400', fontSize: '1em' }}
+        >
+          Search APIs
+      </SidebarHeader>
+
+        <SidebarHeader>APIs</SidebarHeader>
+        {}
+        <>
+          <MenuLink active={props.path.params.apiId == 'visa'}>
+            VISA Merchant Payments API
+             <a href="/apis/visa">
+                <Menu.Menu>
+                    <MenuLink active={true} style={{ fontWeight: '400' }}>
+                      staging
+                    </MenuLink>
+              </Menu.Menu>
+            </a>
+            </MenuLink>
+          <MenuLink active={props.path.params.apiId == 'greenbyte'}>
+            Greenbyte API
+                        <a href="/apis/greenbyte">
+     <Menu.Menu>
+              <MenuLink active={true} style={{ fontWeight: '400' }}>
+                staging
+                    </MenuLink>
+            </Menu.Menu>
+            </a>
+    </MenuLink>
+        </>
+      </Sidebar>
+    )  }
 
   const apiGroupList = getApisWithStages(
     props.activateFirst && props.path.params.apiId,

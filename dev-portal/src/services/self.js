@@ -60,7 +60,7 @@ export function init () {
     logoutTimer = setTimeout(logout, diff)
     setCredentials()
   } else {
-    initApiGatewayClient() // init a blank client (will get overwritten if we have creds)
+    // initApiGatewayClient() // init a blank client (will get overwritten if we have creds)
     logout()
   }
 }
